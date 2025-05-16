@@ -4,37 +4,120 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C Code Portfolio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
   <!-- VS Code Syntax Highlighting -->
   <link rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/c.min.js"></script>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Animate.css for animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
-  <header>
-    <h1><i class="fas fa-code"></i> My C Projects</h1>
-    <div class="controls">
-      <input type="text" id="search" placeholder="Search files...">
-      <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-    </div>
-  </header>
-
-  <main>
-    <div class="sidebar">
-      <ul id="file-list"></ul>
-    </div>
-
-    <div class="code-container">
-      <div class="code-header">
-        <h2 id="code-title">Select a file</h2>
-        <div id="code-actions"></div>
+  <div class="app-container">
+    <header class="app-header animate__animated animate__fadeInDown">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-code"></i>
+          <h1>C Code Portfolio</h1>
+        </div>
+        <div class="controls">
+          <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search" placeholder="Search C files..." autocomplete="off">
+          </div>
+          <div class="header-buttons">
+            <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+              <i class="fas fa-moon"></i>
+            </button>
+            <button id="menu-toggle" class="icon-button mobile-only" aria-label="Toggle menu">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
       </div>
-      <pre><code id="display-code" class="language-c">// Code will appear here</code></pre>
-      <p id="code-description">No file selected.</p>
+    </header>
+
+    <div class="main-container">
+      <aside class="sidebar animate__animated animate__fadeInLeft">
+        <div class="sidebar-header">
+          <h2><i class="fas fa-folder-open"></i> Projects</h2>
+          <span id="file-count" class="badge">0 files</span>
+        </div>
+        <div class="file-search-container">
+          <input type="text" id="filter-complexity" placeholder="Filter by complexity..." class="hidden">
+        </div>
+        <div class="file-list-container">
+          <ul id="file-list" class="file-list"></ul>
+        </div>
+        <div class="sidebar-footer">
+          <button id="refresh-files" class="text-button">
+            <i class="fas fa-sync-alt"></i> Refresh
+          </button>
+        </div>
+      </aside>
+
+      <main class="code-container animate__animated animate__fadeIn">
+        <div class="empty-state" id="empty-state">
+          <i class="fas fa-file-code"></i>
+          <h3>No file selected</h3>
+          <p>Select a C file from the sidebar to view its contents</p>
+        </div>
+
+        <div class="code-viewer" id="code-viewer" style="display: none;">
+          <div class="code-header">
+            <div class="code-title-container">
+              <h2 id="code-title">filename.c</h2>
+              <div class="code-meta">
+                <span id="code-size" class="meta-item"><i class="fas fa-file-alt"></i> 0 KB</span>
+                <span id="code-lines" class="meta-item"><i class="fas fa-bars"></i> 0 lines</span>
+                <span id="code-complexity" class="meta-item hidden"><i class="fas fa-brain"></i> Medium</span>
+              </div>
+            </div>
+            <div class="code-actions" id="code-actions">
+              <button id="copy-button" class="icon-button" aria-label="Copy code">
+                <i class="far fa-copy"></i>
+              </button>
+              <a id="download-button" class="icon-button" aria-label="Download file" download>
+                <i class="fas fa-download"></i>
+              </a>
+              <button id="expand-button" class="icon-button" aria-label="Expand view">
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="code-content">
+            <pre><code id="display-code" class="language-c">// Code will appear here</code></pre>
+          </div>
+          
+          <div class="code-footer">
+            <div class="code-description" id="code-description">
+              <i class="fas fa-info-circle"></i>
+              <p>No description available</p>
+            </div>
+            <div class="code-stats">
+              <span id="last-modified"><i class="far fa-clock"></i> Unknown</span>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-  </main>
+
+    <footer class="app-footer">
+      <p>Created with <i class="fas fa-heart"></i> by <span id="username">You</span></p>
+      <p class="build-info">
+        <span id="build-time"></span>
+        <span class="separator">•</span>
+        <span id="file-version">v1.0.0</span>
+      </p>
+    </footer>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
 
   <script src="script.js"></script>
 </body>
