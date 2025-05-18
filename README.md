@@ -1,2 +1,0 @@
-# LearningDev
-Exercises 
